@@ -85,7 +85,7 @@ private object LocationDetailsContent {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(24.dp),
+                .padding(top = 100.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Header(state)

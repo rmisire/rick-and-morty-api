@@ -5,6 +5,7 @@ import org.koin.dsl.KoinAppDeclaration
 import org.mathieu.cleanrmapi.data.databaseModule
 import org.mathieu.cleanrmapi.data.remoteModule
 import org.mathieu.cleanrmapi.data.repositoriesModule
+import org.mathieu.cleanrmapi.media.mediaModule
 
 
 fun initKoin(config: KoinAppDeclaration? = null) =
@@ -13,6 +14,7 @@ fun initKoin(config: KoinAppDeclaration? = null) =
         modules(
             remoteModule,
             repositoriesModule,
+            mediaModule,
             databaseModule,
             org.mathieu.cleanrmapi.data.dataStoreModule,
             org.mathieu.cleanrmapi.data.databaseBuilderModule

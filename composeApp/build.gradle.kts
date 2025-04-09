@@ -140,6 +140,7 @@ android {
 
 dependencies {
 
+    implementation(libs.media3.exoplayer)
     // KSP support for Room Compiler.
     listOf(
         "kspAndroid",

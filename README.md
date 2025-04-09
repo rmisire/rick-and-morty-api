@@ -1,21 +1,112 @@
-This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop.
+# CleanRMAPI
 
-* `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - `commonMain` is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    `iosMain` would be the right folder for such calls.
+CleanRMAPI est une application multiplateforme Kotlin visant à afficher et gérer des données récupérées via l’API Rick & Morty. Ce projet utilise une approche de Clean Architecture pour séparer les couches Domain, Data et UI, ainsi qu’une logique partagée entre Android et Desktop. L’interface utilisateur est implémentée en Compose Multiplatform.
 
-* `/iosApp` contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform, 
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+## Table des matières
+
+- [Architecture](#architecture)
+- [Technologies](#technologies)
+- [Structure du projet](#structure-du-projet)
+- [Installation et Exécution](#installation-et-exécution)
+
+## Architecture
+
+CleanRMAPI a été conçu en adoptant une architecture en couches respectant les principes de Clean Architecture. Le projet est organisé de la façon suivante :
+
+### Domain
+Contient les modèles de données et la logique métier partagée : modèles pour les personnages, épisodes, locations.
+
+### Data
+Gère la récupération et la persistance des données.
+
+- **Remote** : Utilise Ktor pour interroger l’API Rick & Morty et kotlinx.serialization pour la conversion des données JSON.
+- **Local** : Implémente une persistance locale via Room et fournit des DAOs pour accéder aux données stockées (CharacterDAO, EpisodeDAO, LocationDAO).
+- **Mappers** : Les fonctions de mapping convertissent les données entre les modèles de données distants, les entités Room et les modèles Domain.
+
+### UI
+Implémentée en Compose Multiplatform, elle offre une interface utilisateur sur Android et Desktop.
+
+- **ViewModels** : Définis en code commun (avec expect/actual ou via des frameworks tels que KMP-ObservableViewModel) et gérés par Koin pour l’injection de dépendances.
+- **Navigation** : Utilise Compose Navigation et une classe Destination pour orchestrer la navigation entre les écrans (characters, character details, episode details, location details).
+
+### Media
+La gestion des ressources audio (sound effects) est implémentée de manière multiplateforme en utilisant expect/actual. Sur Android, ExoPlayer est utilisé, et sur Desktop, l’API Java Sound est exploitée pour jouer des sons stockés dans composeResources/files.
+
+> **Note :** Cette architecture favorise la réutilisation du code et la séparation des préoccupations, facilitant ainsi la maintenance et l’évolution du projet.
+
+## Technologies
+
+Le projet utilise les bibliothèques et frameworks suivants :
+
+- **Kotlin Multiplatform**  
+  Partage du code métier et de l’UI entre Android et Desktop.
+
+- **Jetpack Compose / Compose Multiplatform**  
+  Création d’interfaces utilisateurs modernes et réactives.
+
+- **Ktor**  
+  Gestion des requêtes réseau et de la communication avec l’API.
+
+- **kotlinx.serialization**  
+  Sérialisation/désérialisation JSON.
+
+- **Koin**  
+  Injection de dépendances pour une gestion modulaire et testable.
+
+- **Room**  
+  Persistance locale sur Android à l’aide d’un DAO/Entity.
+
+- **ExoPlayer (Android)**  
+  Lecture des sound effects.
+
+- **Java Sound API (Desktop)**  
+  Lecture des fichiers audio sur Desktop.
+
+Ces technologies offrent une base solide pour construire une application multiplateforme robuste et évolutive.
+
+## Structure du projet
+
+La structure du projet est organisée de manière à respecter la Clean Architecture :
+
+```bash
+CleanRMAPI/
+├── shared/
+│   ├── src/
+│   │   ├── commonMain/
+│   │   │   ├── domain       # Modèles Domain et logique métier partagée
+│   │   │   ├── data         # Accès aux données (Remote, Local, Mappers)
+│   │   │   ├── media        # Déclaration expect pour la lecture audio
+│   │   │   └── ui           # ViewModels et composables partagés
+│   │   ├── androidMain/
+│   │   │   ├── media        # Implémentation AudioPlayer pour Android
+│   │   │   
+│   │   └── desktopMain/
+│   │       ├── media        # Implémentation AudioPlayer pour Desktop
+│   │   
+├── build.gradle.kts
+└── README.md
+```
+## Modules Koin
+
+Les modules de dépendances **Koin** se trouvent dans `shared/src/commonMain/kotlin/org/mathieu/cleanrmapi/data`  
+(`remoteModule`, `repositoriesModule`, `databaseModule`, etc.), et le module `mediaModule` gère l’injection de l’`AudioPlayer`.
+
+---
+
+## Installation et Exécution
+
+### Cloner le dépôt
+
+```bash
+git clone https://github.com/votre-utilisateur/CleanRMAPI.git
+cd CleanRMAPI
+```
+
+Faites pas comme moi si vous voulez fork et désélectionnez l'option : 
+
+Copy the versions/4_kmp_every_platforms branch only
+
+Promis vous allez gagner du temps ... :)
 
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html),
-[Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform/#compose-multiplatform),
-[Kotlin/Wasm](https://kotl.in/wasm/)…
 
-We would appreciate your feedback on Compose/Web and Kotlin/Wasm in the public Slack channel [#compose-web](https://slack-chats.kotlinlang.org/c/compose-web).
-If you face any issues, please report them on [GitHub](https://github.com/JetBrains/compose-multiplatform/issues).
-
-You can open the web application by running the `:composeApp:wasmJsBrowserDevelopmentRun` Gradle task.
