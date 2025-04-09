@@ -11,6 +11,17 @@ import org.mathieu.cleanrmapi.data.remote.LocationAPI
 import org.mathieu.cleanrmapi.domain.location.models.Location
 import org.mathieu.cleanrmapi.domain.location.models.LocationRepository
 
+
+/**
+ * Implementation of the LocationRepository interface.
+ *
+ * This class is responsible for managing location data, including fetching it from a remote API
+ * and storing it in a local database.
+ *
+ * @property dataStore The DataStore instance for managing local data.
+ * @property locationApi The LocationAPI instance for fetching location data from a remote source.
+ * @property locationDao The LocationDAO instance for accessing the local database.
+ */
 internal class LocationRepositoryImpl (
     private val dataStore: DataStore,
     private val locationApi: LocationAPI,

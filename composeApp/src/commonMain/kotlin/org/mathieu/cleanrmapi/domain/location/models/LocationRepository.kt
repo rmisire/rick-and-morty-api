@@ -9,9 +9,4 @@ interface LocationRepository {
      * @return Details of the specified location.
      */
     suspend fun getLocation(id: Int): Location?
-
-
-
-
-
 }

@@ -7,6 +7,12 @@ import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 import org.mathieu.cleanrmapi.data.local.objects.LocationObject
 
+
+/**
+ * Data Access Object for the Location table.
+ *
+ * This interface defines methods for accessing and manipulating location data in the database.
+ */
 @Dao
 interface LocationDAO {
 
