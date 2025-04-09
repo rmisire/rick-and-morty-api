@@ -5,8 +5,6 @@ import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.http.HttpStatusCode
 import org.mathieu.cleanrmapi.data.remote.responses.LocationResponse
-import org.mathieu.cleanrmapi.data.validators.IdListValidator
-import org.mathieu.cleanrmapi.data.validators.annotations.MustBeCommaSeparatedIds
 
 internal class LocationAPI(private val client: HttpClient) {
 

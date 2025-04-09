@@ -25,7 +25,7 @@ abstract class RMDatabase: RoomDatabase() {
 
     abstract fun characterDAO(): CharacterDAO
     abstract fun episodeDAO(): EpisodeDAO
-    abstract fun locationDAO(): LocationDao
+    abstract fun locationDAO(): LocationDAO
 
     companion object {
         const val CHARACTER_TABLE = "character_table"

@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import org.mathieu.cleanrmapi.data.local.objects.LocationObject
 
 @Dao
-interface LocationDao {
+interface LocationDAO {
 
     @Query("select * from ${RMDatabase.LOCATION_TABLE}")
     fun getLocations(): Flow<List<LocationObject>>
