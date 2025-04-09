@@ -56,12 +56,6 @@ Le projet utilise les bibliothèques et frameworks suivants :
 - **Room**  
   Persistance locale sur Android à l’aide d’un DAO/Entity.
 
-- **ExoPlayer (Android)**  
-  Lecture des sound effects.
-
-- **Java Sound API (Desktop)**  
-  Lecture des fichiers audio sur Desktop.
-
 Ces technologies offrent une base solide pour construire une application multiplateforme robuste et évolutive.
 
 ## Structure du projet
